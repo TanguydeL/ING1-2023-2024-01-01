@@ -1,0 +1,17 @@
+int min = 1; //minutes
+    int seconds = 30; //secondes
+    int fps = 1; // 1 car snn c'est trop rapide
+
+    //tq le tps n'est pas ecoule
+    while (min >= 0 && seconds >= 0) {
+        clear_to_color(screen, makecol(0, 0, 0)); // Effacer l'écran
+        textprintf_centre_ex(screen, font, 100, 30, makecol(255, 255, 255), -1, "%02d:%02d", min, seconds); //affichage du tps
+        rest(1000 / fps); // Attendre 1 seconde
+        //si sec<0, on enleve 1 aux mins
+        if ((seconds = seconds-1) < 0) {
+            //si min <0, fin du decompte
+            if ((min = min-1) < 0)
+                break;
+            seconds = 59; // si sec >0 mais min >0
+        }
+    }
