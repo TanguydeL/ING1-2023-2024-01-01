@@ -1,0 +1,7 @@
+#include <stdio.h>
+#include <allegro.h>
+
+int main(){
+allegro.init();
+printf("Tanguy est une porte");
+}END_OF_MAIN
