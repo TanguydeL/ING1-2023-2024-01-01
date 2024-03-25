@@ -1,0 +1,111 @@
+int main() {
+
+    allegro_init();
+    install_keyboard();
+
+    set_color_depth(desktop_color_depth()); //set de couleur de l'ordi
+    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0) != 0) //resolution de la page
+    {
+        allegro_message("prb gfx mode");
+        allegro_exit(); //permet de ne plus tere co a allegro
+        exit(EXIT_FAILURE);
+    }
+
+    // paramètres de l'élément à animer
+    int posx1, posy1;    // coordonnées
+    int tx1, ty1;        // taille (largeur et hauteur)
+    int depx1, depy1;    // vecteur déplacement effectif en x et y
+    int deplacement;  // amplitude absolu des déplacements
+
+    int posx2, posy2;    // coordonnées
+    int tx2, ty2;        // taille (largeur et hauteur)
+    int depx2, depy2;    // vecteur déplacement effectif en x et y
+
+
+    srand(time(NULL));
+
+
+    // tailles et position initiale au centre
+    tx1 = 60;
+    ty1 = 40;
+    posx1 = SCREEN_W / 3 - tx1 / 2; //position cercle 1
+    posy1 = SCREEN_H / 2 - ty1 / 2;
+
+
+    // tailles et position initiale au centre
+    tx2 = 60;
+    ty2 = 40;
+    posx2 = 2*SCREEN_W / 3 - tx2 / 2; //position cercle 2
+    posy2 = SCREEN_H / 2 - ty2 / 2;
+
+    // mvt : se déplacera de 5 pixels à chaque étape
+    // initialement immobile
+    deplacement = 5;
+    depx1 = 0;
+    depy1 = 0;
+    depx2 = 0;
+    depy2 = 0;
+
+
+    // Boucle interactive
+    while (!key[KEY_ESC]) {
+        depx1 = 0;
+        depy1 = 0;
+        depx2 = 0;
+        depy2 = 0;
+
+        // prise en compte du clavier sur le vecteur deplacement depx et depy
+        if (key[KEY_UP]) {
+            depy1 = -deplacement; // mouvement vers le haut
+        }
+        if (key[KEY_DOWN]) {
+            depy1 = deplacement; // mouvement vers le bas
+        }
+        if (key[KEY_LEFT]) {
+            depx1 = -deplacement; // mouvement à gauche
+        }
+        if (key[KEY_RIGHT]) {
+            depx1 = deplacement; // mouvement à droite
+        }
+        if (key[KEY_T]) {
+            depy2 = -deplacement; // mouvement vers le haut
+        }
+        if (key[KEY_G]) {
+            depy2 = deplacement; // mouvement vers le bas
+        }
+        if (key[KEY_F]) {
+            depx2 = -deplacement; // mouvement à gauche
+        }
+        if (key[KEY_H]) {
+            depx2 = deplacement; // mouvement à gauche
+        }
+
+        // contrôle des bords : ici on décide de rebondir sur les bords
+        if ((posx1 + depx1 < 0) || (posx1 + tx1 + depx1 > SCREEN_W))
+            depx1 = 0;
+        if ((posy1 + depy1 < 0) || (posy1 + ty1 + depy1 > SCREEN_H))
+            depy1 = 0;
+        // contrôle des bords : ici on décide de rebondir sur les bords
+        if ((posx2 + depx2 < 0) || (posx2 + tx2 + depx2 > SCREEN_W))
+            depx2 = 0;
+        if ((posy2 + depy2 < 0) || (posy2 + ty2 + depy2 > SCREEN_H))
+            depy2 = 0;
+
+        // nouvelle position = position actuelle + deplacement
+        posx1 += depx1;
+        posy1 += depy1;
+        posx2 += depx2;
+        posy2 += depy2;
+
+
+        //Affichage des nvx cercles
+        circlefill(screen, posx1, posy1, 10, makecol(255,128,128));
+        circlefill(screen, posx2, posy2, 10, makecol(0,255,0));
+
+        //pause snn ca va trop vide
+        rest(20);
+    }
+
+    allegro_exit();
+    return 0;
+} END_OF_MAIN();
