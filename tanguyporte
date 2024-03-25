@@ -2,6 +2,18 @@
 #include <allegro.h>
 
 int main(){
-allegro.init();
-printf("Tanguy est une porte");
-}END_OF_MAIN
+    allegro_init();
+    set_color_depth(desktop_color_depth());
+    install_keyboard();
+    if((set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,600,0,0))!=0)
+    { 	allegro_message("Pb de mode graphique") ;
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    printf("Tanguy est une porte");
+    while(!key[KEY_ESC]) {
+        textout_ex(screen,font, "Tanguy est une porte", 200, 200, makecol(0,255,0), -1);
+    }
+    allegro_exit();
+    return 0;
+}END_OF_MAIN()
