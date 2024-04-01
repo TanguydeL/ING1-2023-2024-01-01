@@ -91,6 +91,9 @@ int main() {
         if ((posy2 + depy2 - 10 < 0) || (posy2 + depy2 + 10 > SCREEN_H))
             depy2 = 0;
 
+        // effacer l'écran à chaque itération pour éviter le traçage
+        clear_bitmap(screen);
+
         // nouvelle position = position actuelle + deplacement
         posx1 += depx1;
         posy1 += depy1;
