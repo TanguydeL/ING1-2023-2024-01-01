@@ -1,0 +1,124 @@
+int main()
+{
+    //ini des pt vers des fichiers
+    BITMAP* image1;
+    BITMAP* image2;
+    BITMAP* redimension;
+    BITMAP* redimension2;
+    BITMAP* buffer;
+
+    allegro_init();
+    install_keyboard();
+
+    set_color_depth(desktop_color_depth());
+    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0) != 0) {
+        allegro_message("Erreur lors du réglage du mode graphique");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+    //chargement des images
+    image1 = load_bitmap("perso1.bmp", NULL);
+    if (!image1) {
+        allegro_message("Impossible de charger l'image."); //blindage
+        return 1;
+    }
+
+    image2 = load_bitmap("perso2.bmp", NULL);
+    if (!image2) {
+        allegro_message("Impossible de charger l'image."); //blindage
+        return 1;
+    }
+
+    //redimension des images
+    redimension = create_bitmap(50, 50); //cree nvl bitmap pr image1
+    stretch_sprite(redimension, image1, 0, 0, 50, 50); //copie image dans le bitmap
+    redimension2 = create_bitmap(50, 50);
+    stretch_sprite(redimension2, image2, 0, 0, 50, 50);
+
+    //position de image1
+    int posx1 = (SCREEN_W / 3) - 25;
+    int posy1 = (SCREEN_H / 2) - 25;
+
+    //position de image2
+    int posx2 = (2* SCREEN_W / 3) - 25;
+    int posy2 = (SCREEN_H / 2) - 25;
+
+    int deplacement = 5; //deplacement de 5 pixels
+
+    buffer = create_bitmap(SCREEN_W, SCREEN_H); //cree tampon pr le double buffering
+
+    while (!key[KEY_ESC]) {
+        clear_bitmap(buffer); //effacer le tampon
+
+        //dessiner images sur tampon
+        draw_sprite(buffer, redimension, posx1, posy1);
+        draw_sprite(buffer, redimension2, posx2, posy2);
+
+        //transfere du contenu du tampon à l'ecran
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        //mouv des images avec touches du clavier
+        if (key[KEY_UP]) {
+            posy1 -= deplacement; //mouv haut
+        }
+        if (key[KEY_DOWN]) {
+            posy1 += deplacement; //mouv bas
+        }
+        if (key[KEY_LEFT]) {
+            posx1 -= deplacement; //mouv gauche
+        }
+        if (key[KEY_RIGHT]) {
+            posx1 += deplacement; //mouv droite
+        }
+        if (key[KEY_T]) {
+            posy2 -= deplacement; //mouv haut
+        }
+        if (key[KEY_G]) {
+            posy2 += deplacement; //mouv bas
+        }
+        if (key[KEY_F]) {
+            posx2 -= deplacement; //mouv gauche
+        }
+        if (key[KEY_H]) {
+            posx2 += deplacement; //mouv droite
+        }
+
+        //controle des bords
+        if (posx1 < 0) {
+            posx1 = 0;
+        }
+        if (posx1 > SCREEN_W - 50) {
+            posx1 = SCREEN_W - 50;
+        }
+        if (posy1 < 0) {
+            posy1 = 0;
+        }
+        if (posy1 > SCREEN_H - 50) {
+            posy1 = SCREEN_H - 50;
+        }
+        if (posx2 < 0) {
+            posx2 = 0;
+        }
+        if (posx2 > SCREEN_W - 50) {
+            posx2 = SCREEN_W - 50;
+        }
+        if (posy2 < 0) {
+            posy2 = 0;
+        }
+        if (posy2 > SCREEN_H - 50) {
+            posy2 = SCREEN_H - 50;
+        }
+
+        rest(20); //pause snn cv trop vite
+    }
+
+    //liberation memoire
+    destroy_bitmap(image1);
+    destroy_bitmap(image2);
+    destroy_bitmap(redimension);
+    destroy_bitmap(redimension2);
+    destroy_bitmap(buffer);
+
+    allegro_exit();
+}
+END_OF_MAIN();
