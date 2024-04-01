@@ -81,14 +81,14 @@ int main() {
         }
 
         // contrôle des bords : ici on décide de rebondir sur les bords
-        if ((posx1 + depx1 < 0) || (posx1 + tx1 + depx1 > SCREEN_W))
+        if ((posx1 + depx1 - 10 < 0) || (posx1 + depx1 + 10 > SCREEN_W))
             depx1 = 0;
-        if ((posy1 + depy1 < 0) || (posy1 + ty1 + depy1 > SCREEN_H))
+        if ((posy1 + depy1 - 10 < 0) || (posy1 + depy1 + 10 > SCREEN_H))
             depy1 = 0;
         // contrôle des bords : ici on décide de rebondir sur les bords
-        if ((posx2 + depx2 < 0) || (posx2 + tx2 + depx2 > SCREEN_W))
+        if ((posx2 + depx2 -10< 0) || (posx2 + depx2 + 10 > SCREEN_W))
             depx2 = 0;
-        if ((posy2 + depy2 < 0) || (posy2 + ty2 + depy2 > SCREEN_H))
+        if ((posy2 + depy2 - 10 < 0) || (posy2 + depy2 + 10 > SCREEN_H))
             depy2 = 0;
 
         // nouvelle position = position actuelle + deplacement
@@ -96,7 +96,6 @@ int main() {
         posy1 += depy1;
         posx2 += depx2;
         posy2 += depy2;
-
 
         //Affichage des nvx cercles
         circlefill(screen, posx1, posy1, 10, makecol(255,128,128));
