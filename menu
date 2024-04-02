@@ -34,6 +34,7 @@ int main() {
             rectfill(page, 352,282,448,318, makecol(200,200,200));
             if (mouse_b &1){
                 allegro_exit();
+                return 0;
             }
         }
         textout_centre_ex(page, font, "Jouer", 400, 120, makecol(255,255,255), -1);
