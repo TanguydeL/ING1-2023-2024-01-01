@@ -1,0 +1,48 @@
+#include "fonction.h"
+
+int main() {
+
+    allegro_init();
+    install_keyboard();
+
+    set_color_depth(desktop_color_depth()); //set de couleur de l'ordi
+    if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0) != 0) //resolution de la page
+    {
+        allegro_message("prb gfx mode");
+        allegro_exit(); //permet de ne plus tere co a allegro
+        exit(EXIT_FAILURE);
+    }
+
+    // paramètres de l'élément à animer
+    int tx, ty;        // taille (largeur et hauteur)
+    tx = 60;
+    ty = 40;
+    int posx1, posy1;    // coordonnées
+    int posx2, posy2;    // coordonnées
+    int deplacement;  // amplitude absolu des déplacements
+
+    //generation des player
+    player_generator(tx,ty,&posx1, &posy1,&posx2, &posy2);
+
+    // mvt : se déplacera de 5 pixels à chaque étape
+    // initialement immobile
+    deplacement = 5;
+
+    //initialisation de la bitmap
+    BITMAP* page;
+    page = create_bitmap(SCREEN_W,SCREEN_H);
+
+    // Boucle interactive
+    while (!key[KEY_ESC]) {
+        //effacement de la position antérieur (problème : n'affiche plus )
+        clear(page);
+        //fonction de jeu
+        mouvement(deplacement,&posx1,&posy1,&posx2,&posy2);
+        //pause snn ca va trop vide
+        rest(20);
+        //Affichage des nvx cercles
+        affichage(page,&posx1,&posy1,&posx2,&posy2);
+    }
+    allegro_exit();
+    return 0;
+} END_OF_MAIN();
