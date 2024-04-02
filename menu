@@ -1,0 +1,29 @@
+#include <allegro.h>
+
+int main() {
+    allegro_init();
+    install_keyboard();
+    install_mouse();
+    set_color_depth(desktop_color_depth());
+    if((set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,480,0,0))!=0)
+    { 	allegro_message("Pb de mode graphique");
+        allegro_exit();
+        exit(EXIT_FAILURE);
+    }
+
+    BITMAP * page;
+    page = create_bitmap(SCREEN_W,SCREEN_H);
+    show_mouse(screen);
+    while (!key[KEY_ESC]){
+        for (int i = 0; i < 4; ++i) {
+            rect(screen, 350,100+i*60,450,140+i*60, makecol(255,255,255));
+        }
+        if (mouse_x >= 350 && mouse_x <= 450 && mouse_y >= 100 && mouse_y <= 140){
+            rectfill(screen, 360,110,440,130, makecol(0,255,0));
+            clear(screen);
+        }
+
+        //allegro_message("Jouer \n Options \n Quitter ");
+    }
+    allegro_exit();
+}END_OF_MAIN()
