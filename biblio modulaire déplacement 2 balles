@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <allegro.h>
+
+#ifndef PROJET_ALLEGRO_DEPLACEMENT_MODULAIRE_FONCTION_H
+#define PROJET_ALLEGRO_DEPLACEMENT_MODULAIRE_FONCTION_H
+
+//geenration des joueurs à l'état initial
+void player_generator(int tx, int ty, int* x1,int* y1,int* x2, int* y2);
+//mouvement du joueur au cours de la partie
+void mouvement(int deplacement,int* x1,int* y1,int* x2, int* y2);
+//affichage des movt du joueur au cours de la partie
+void affichage(BITMAP* page,int* x1,int* y1,int* x2, int* y2);
+#endif //PROJET_ALLEGRO_DEPLACEMENT_MODULAIRE_FONCTION_H
