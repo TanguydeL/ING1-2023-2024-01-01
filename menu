@@ -46,7 +46,7 @@ int main() {
         textout_centre_ex(page, font, "Options", 400, 240, makecol(255,255,255), -1);
         textout_centre_ex(page, font, "Quitter", 400, 300, makecol(255,255,255), -1);
 
-        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+        blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H); //permet d'échanger la bitmap avec le screen
     }
     allegro_exit();
 }END_OF_MAIN()
