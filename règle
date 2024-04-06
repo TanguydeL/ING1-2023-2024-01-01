@@ -1,0 +1,18 @@
+void regle(BITMAP * page){
+    page = create_bitmap(SCREEN_W,SCREEN_H);
+    clear_bitmap(page);
+    textout_ex(page, font, "Le but du jeu est simple.", 300, 150, makecol(255, 255, 255), -1);
+    textout_ex(page, font, " ", 200, 170, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "Vous êtes deux cuisiniers, votre objectif est de préparer,", 200, 190, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "cuisiner et servir plusieurs plats dans un temps imparti.", 200, 210, makecol(255, 255, 255), -1);
+    textout_ex(page, font, " ", 200, 230, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "La communication et la coordination sont essentielles pour", 200, 270, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "réussir à gérer le temps et les ressources limitées tout en", 200, 290, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "évitant les obstacles.", 200, 310, makecol(255, 255, 255), -1);
+    textout_ex(page, font, "Amusez-vous bien ;)", 320, 330, makecol(255, 255, 280), -1);
+
+
+    blit(page,screen,0,0,0,0,SCREEN_W,SCREEN_H);
+
+    while (!key[KEY_ESC]) {}
+}
